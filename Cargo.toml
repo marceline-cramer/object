@@ -45,14 +45,12 @@ read_core = []
 read = ["read_core", "archive", "coff", "elf", "macho", "pe", "xcoff", "unaligned"]
 # Core write support. You will need to enable some file formats too.
 write_core = ["dep:crc32fast", "dep:indexmap", "dep:hashbrown"]
-# Core write support with libstd features. You will need to enable some file formats too.
-write_std = ["write_core", "std", "indexmap?/std", "crc32fast?/std"]
 # Write support for all file formats, including libstd features.
-write = ["write_std", "coff", "elf", "macho", "pe", "xcoff"]
+write = ["write_core", "coff", "elf", "macho", "pe", "xcoff"]
 # Core builder support. You will need to enable some file formats too.
 build_core = ["read_core", "write_core"]
 # Builder support for all file formats.
-build = ["build_core", "write_std", "elf"]
+build = ["build_core", "write", "elf"]
 
 #=======================================
 # Misc features.
@@ -96,7 +94,7 @@ cargo-all = []
 #=======================================
 # Documentation should be generated with everything in "all" except for "unaligned".
 doc = [
-  "read_core", "write_std", "build_core",
+  "read_core", "write_core", "build_core",
   "std", "compression",
   "archive", "coff", "elf", "macho", "pe", "wasm", "xcoff",
 ]
